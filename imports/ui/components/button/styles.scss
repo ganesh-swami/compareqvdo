@@ -22,6 +22,11 @@
   --btn-warning-bg: var(--color-warning);
   --btn-warning-border: var(--color-warning);
 
+
+  --btn-green-color: var(--color-white);
+  --btn-green-bg: var(--color-green);
+  --btn-green-border: var(--color-green);
+
   --btn-danger-color: var(--color-white);
   --btn-danger-bg: var(--color-danger);
   --btn-danger-border: var(--color-danger);
@@ -310,6 +315,10 @@
 
 .warning {
   @include button-variant(var(--btn-warning-color), var(--btn-warning-bg), var(--btn-warning-border));
+}
+
+.green {
+  @include button-variant(var(--btn-green-color), var(--btn-green-bg), var(--btn-green-border));
 }
 
 .danger {

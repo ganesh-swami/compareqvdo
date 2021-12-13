@@ -90,6 +90,12 @@
   }
 }
 
+.aselect{
+  width: 46%;
+  font-size: 1.2rem;
+  height: 2.5rem;
+}
+
 .pullContentRight {
   display: flex;
   justify-content: flex-end;
@@ -127,4 +133,18 @@
   & > div {
     background-color: black;
   }
+}
+
+.audiosel{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-around;
+}
+
+.label {
+  margin-top: 8px;
+  font-size: 0.85rem;
+  font-weight: bold;
+  color: var(--color-gray-label);
 }

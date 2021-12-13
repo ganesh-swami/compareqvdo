@@ -7,10 +7,13 @@ import Auth from '/imports/ui/services/auth';
 import LayoutContext from '../../layout/context';
 import { ACTIONS, PANELS } from '../../layout/enums';
 
-
 const PadContainer = (props) => {
   const layoutContext = useContext(LayoutContext);
-  const { layoutContextDispatch } = layoutContext;
+  const { layoutContextDispatch, layoutContextState } = layoutContext;
+  const { input } = layoutContextState;
+  const { cameraDock } = input;
+  const { isResizing } = cameraDock;
+
   const {
     amIModerator,
     children,
@@ -29,7 +32,7 @@ const PadContainer = (props) => {
   }
 
   return (
-    <Pad {...{ layoutContextDispatch, ...props }}>
+    <Pad {...{ layoutContextDispatch, isResizing, ...props }}>
       {children}
     </Pad>
   );

@@ -17,6 +17,7 @@ const DEFAULT_VALUES = {
   cameraDockMinHeight: 120,
   cameraDockMinWidth: 120,
   camerasMargin: 10,
+  captionsMargin: 10,
 
   presentationTabOrder: 5,
   presentationMinHeight: 220,
@@ -24,7 +25,7 @@ const DEFAULT_VALUES = {
 
   bannerHeight: 34,
 
-  navBarHeight: 85,
+  navBarHeight: 45,//85,
   navBarTop: 0,
   navBarTabOrder: 3,
 

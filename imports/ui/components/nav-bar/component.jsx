@@ -14,6 +14,7 @@ import ConnectionStatusButton from '/imports/ui/components/connection-status/but
 import ConnectionStatusService from '/imports/ui/components/connection-status/service';
 import SettingsDropdownContainer from './settings-dropdown/container';
 import { PANELS, ACTIONS } from '../layout/enums';
+import CustomLogo from '../user-list/custom-logo/component';
 
 const intlMessages = defineMessages({
   toggleUserListLabel: {
@@ -34,6 +35,7 @@ const propTypes = {
   presentationTitle: PropTypes.string,
   hasUnreadMessages: PropTypes.bool,
   shortcuts: PropTypes.string,
+  CustomLogoUrl: PropTypes.string.isRequired,
 };
 
 const defaultProps = {
@@ -122,6 +124,7 @@ class NavBar extends Component {
       style,
       main,
       sidebarNavigation,
+      CustomLogoUrl
     } = this.props;
 
     const hasNotification = hasUnreadMessages || hasUnreadNotes;
@@ -155,9 +158,12 @@ class NavBar extends Component {
       >
         <div className={styles.top}>
           <div className={styles.left}>
-            {!isExpanded ? null
-              : <Icon iconName="left_arrow" className={styles.arrowLeft} />}
-            <Button
+            {/* {isExpanded ? null : */}
+              <CustomLogo CustomLogoUrl={CustomLogoUrl} separator={false} />
+            {/* } */}
+            {/* {!isExpanded ? null
+              : <Icon iconName="left_arrow" className={styles.arrowLeft} />} */}
+            {/* <Button
               onClick={this.handleToggleUserList}
               ghost
               circle
@@ -169,9 +175,10 @@ class NavBar extends Component {
               className={cx(toggleBtnClasses)}
               aria-expanded={isExpanded}
               accessKey={TOGGLE_USERLIST_AK}
-            />
-            {isExpanded ? null
-              : <Icon iconName="right_arrow" className={styles.arrowRight} />}
+            /> */}
+            {/* {isExpanded ? null
+              : <Icon iconName="right_arrow" className={styles.arrowRight} />
+              } */}
           </div>
           <div className={styles.center}>
             <h1 className={styles.presentationTitle}>{presentationTitle}</h1>
@@ -186,9 +193,9 @@ class NavBar extends Component {
             <SettingsDropdownContainer amIModerator={amIModerator} />
           </div>
         </div>
-        <div className={styles.bottom}>
+        {/* <div className={styles.bottom}>
           <TalkingIndicatorContainer amIModerator={amIModerator} />
-        </div>
+        </div> */}
       </header>
     );
   }

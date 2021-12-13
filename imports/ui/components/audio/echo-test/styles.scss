@@ -27,8 +27,9 @@
   }
 
   span:last-child {
-    color: black;
+    color: var(--color-white);
     font-size: 1rem;
     font-weight: 600;
   }
 }
+

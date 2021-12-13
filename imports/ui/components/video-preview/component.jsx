@@ -598,7 +598,7 @@ class VideoPreview extends Component {
             </span>
           )
           : (
-            <span>
+            <>
               <label className={styles.label} htmlFor="setQuality">
                 {intl.formatMessage(intlMessages.qualityLabel)}
               </label>
@@ -629,7 +629,7 @@ class VideoPreview extends Component {
                   </span>
                 )
               }
-            </span>
+            </>
           )
         }
         {isVirtualBackgroundEnabled() && this.renderVirtualBgSelector()}
@@ -810,20 +810,22 @@ class VideoPreview extends Component {
     const allowCloseModal = !!(deviceError || previewError) || !PreviewService.getSkipVideoPreview();
 
     return (
-      <Modal
-        overlayClassName={styles.overlay}
-        className={styles.modal}
-        onRequestClose={this.handleProceed}
-        hideBorder
-        contentLabel={intl.formatMessage(intlMessages.webcamSettingsTitle)}
-        shouldShowCloseButton={allowCloseModal}
-        shouldCloseOnOverlayClick={allowCloseModal}
-      >
+      // <Modal
+      //   overlayClassName={styles.overlay}
+      //   className={styles.modal}
+      //   onRequestClose={this.handleProceed}
+      //   hideBorder
+      //   contentLabel={intl.formatMessage(intlMessages.webcamSettingsTitle)}
+      //   shouldShowCloseButton={allowCloseModal}
+      //   shouldCloseOnOverlayClick={allowCloseModal}
+      // >
+      <>
         {deviceInfo.hasMediaDevices
           ? this.renderModalContent()
           : this.supportWarning()
         }
-      </Modal>
+        </>
+      // </Modal>
     );
   }
 }

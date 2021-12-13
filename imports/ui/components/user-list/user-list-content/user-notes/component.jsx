@@ -73,7 +73,7 @@ class UserNotes extends Component {
 
   renderNotes() {
     const {
-      intl, disableNote, sidebarContentPanel, layoutContextDispatch
+      intl, disableNote, sidebarContentPanel, layoutContextDispatch,
     } = this.props;
     const { unread } = this.state;
 
@@ -97,20 +97,22 @@ class UserNotes extends Component {
         aria-describedby="lockedNote"
         role="button"
         tabIndex={0}
-        className={styles.listItem}
+        className={styles.sidebarlistitem}
+        //className={styles.listItem}
         onClick={() => NoteService.toggleNotePanel(sidebarContentPanel, layoutContextDispatch)}
         onKeyPress={() => { }}
       >
-        <Icon iconName="copy" />
+        <Icon iconName="copy" />Notes
+
         <div aria-hidden>
-          <div className={styles.noteTitle} data-test="sharedNotes">
+          {/* <div className={styles.noteTitle} data-test="sharedNotes">
             {intl.formatMessage(intlMessages.sharedNotes)}
-          </div>
+          </div> */}
           {disableNote
             ? (
               <div className={styles.noteLock}>
                 <Icon iconName="lock" />
-                <span id="lockedNote">{`${intl.formatMessage(intlMessages.locked)} ${intl.formatMessage(intlMessages.byModerator)}`}</span>
+                {/* <span id="lockedNote">{`${intl.formatMessage(intlMessages.locked)} ${intl.formatMessage(intlMessages.byModerator)}`}</span> */}
               </div>
             ) : null}
         </div>
@@ -125,18 +127,19 @@ class UserNotes extends Component {
     if (!NoteService.isEnabled()) return null;
 
     return (
-      <div className={styles.messages}>
-        <div className={styles.container}>
-          <h2 className={styles.smallTitle}>
-            {intl.formatMessage(intlMessages.title)}
-          </h2>
-        </div>
-        <div className={styles.scrollableList}>
-          <div className={styles.list}>
-            {this.renderNotes()}
-          </div>
-        </div>
-      </div>
+      // <div className={styles.messages}>
+      //   <div className={styles.container}>
+      //     <h2 className={styles.smallTitle}>
+      //       {intl.formatMessage(intlMessages.title)}
+      //     </h2>
+      //   </div>
+      //   <div className={styles.scrollableList}>
+      //     <div className={styles.list}>
+      //       {this.renderNotes()}
+      //     </div>
+      //   </div>
+      // </div>
+      <>{this.renderNotes()}</>
     );
   }
 }

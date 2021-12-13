@@ -237,14 +237,16 @@ const WaitingUsers = (props) => {
     },
   ];
 
-  const buttonsData = authenticatedGuest ? _.concat(authGuestButtonsData, guestButtonsData) : guestButtonsData;
+  const buttonsData = authenticatedGuest
+    ? _.concat(authGuestButtonsData, guestButtonsData)
+    : guestButtonsData;
 
   return (
     <div
       data-test="note"
       className={styles.panel}
     >
-      <header className={styles.header}>
+      {/* <header className={styles.header}>
         <div
           data-test="noteTitle"
           className={styles.title}
@@ -265,7 +267,7 @@ const WaitingUsers = (props) => {
             className={styles.hideBtn}
           />
         </div>
-      </header>
+      </header> */}
       {isGuestLobbyMessageEnabled ? (
         <div className={styles.lobbyMessage}>
           <TextInput
@@ -286,7 +288,7 @@ const WaitingUsers = (props) => {
           </p>
         </div>
       ) : null}
-      <div>
+      {/* <div>
         <div>
           <p className={styles.mainTitle}>{intl.formatMessage(intlMessages.optionTitle)}</p>
           {
@@ -305,7 +307,7 @@ const WaitingUsers = (props) => {
             </label>
           </div>
         ) : null}
-      </div>
+      </div> */}
       {renderPendingUsers(
         intl.formatMessage(intlMessages.pendingUsers,
           { 0: authenticatedUsers.length }),

@@ -24,8 +24,14 @@ const ActionsBarContainer = (props) => {
   const { users } = usingUsersContext;
   const layoutContext = useContext(LayoutContext);
   const { layoutContextState, layoutContextDispatch } = layoutContext;
-  const { output } = layoutContextState;
+  const { output,input, idChatOpen } = layoutContextState;
   const { actionBar: actionsBarStyle } = output;
+  const { sidebarContent,sidebarNavigation } = input;
+  const { sidebarContentPanel } = sidebarContent;
+  const sidebarContentIsOpen = sidebarContent.isOpen;
+
+
+  
 
   const currentUser = { userId: Auth.userID, emoji: users[Auth.meetingID][Auth.userID].emoji };
 
@@ -36,6 +42,11 @@ const ActionsBarContainer = (props) => {
         currentUser,
         layoutContextDispatch,
         actionsBarStyle,
+        sidebarContent,
+        sidebarContentIsOpen,
+        sidebarContentPanel,
+        idChatOpen,
+        sidebarNavigation
       }
     }
     />

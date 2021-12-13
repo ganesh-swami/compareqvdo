@@ -99,6 +99,7 @@ export const PANELS = {
   CAPTIONS: 'captions',
   BREAKOUT: 'breakoutroom',
   SHARED_NOTES: 'shared-notes',
+  INVITE: 'invite',
   WAITING_USERS: 'waiting-users',
   NONE: 'none',
 };

@@ -1,6 +1,7 @@
 import React from 'react';
 import SidebarContent from './component';
 import { LayoutContextFunc } from '../layout/context';
+// import UserListSerive from '../user-list/service';
 
 const SidebarContentContainer = (props) => {
   const { layoutContextState, layoutContextDispatch } = props;
@@ -16,7 +17,7 @@ const SidebarContentContainer = (props) => {
   return (
     <SidebarContent
       {...sidebarContent}
-      contextDispatch={layoutContextDispatch}
+      layoutContextDispatch={layoutContextDispatch}
       sidebarContentPanel={sidebarContentPanel}
     />
   );

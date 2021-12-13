@@ -39,14 +39,16 @@ class UserList extends PureComponent {
       requestUserInformation,
     } = this.props;
 
+    //console.log('[user-list] #vdo showBranding CustomLogoUrl',showBranding,CustomLogoUrl)
+
     return (
       <div className={styles.userList}>
-        {
+        {/* {
           showBranding
             && !compact
             && CustomLogoUrl
-            ? <CustomLogo CustomLogoUrl={CustomLogoUrl} /> : null
-        }
+            ? <CustomLogo CustomLogoUrl={CustomLogoUrl} separator={true} /> : null
+        } */}
         {<UserContentContainer
           {...{
             intl,

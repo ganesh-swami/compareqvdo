@@ -4,6 +4,7 @@ import { Session } from 'meteor/session';
 import Button from '/imports/ui/components/button/component';
 import { defineMessages, injectIntl } from 'react-intl';
 import { styles } from './styles';
+import cx from 'classnames';
 
 const intlMessages = defineMessages({
   confirmLabel: {
@@ -27,7 +28,9 @@ const intlMessages = defineMessages({
 const propTypes = {
   handleYes: PropTypes.func.isRequired,
   handleNo: PropTypes.func.isRequired,
-  intl: PropTypes.object.isRequired,
+  intl: PropTypes.shape({
+    formatMessage: PropTypes.func.isRequired,
+  }).isRequired,
 };
 
 class EchoTest extends Component {
@@ -52,29 +55,30 @@ class EchoTest extends Component {
     const {
       intl,
     } = this.props;
-    const disableYesButtonClicked = callback => () => {
+    const { disabled } = this.state;
+    const disableYesButtonClicked = (callback) => () => {
       this.setState({ disabled: true }, callback);
     };
     return (
       <span className={styles.echoTest}>
         <Button
-          className={styles.button}
+          className={cx(styles.button,'imsechotest')}
           label={intl.formatMessage(intlMessages.confirmLabel)}
           aria-label={intl.formatMessage(intlMessages.confirmAriaLabel)}
           icon="thumbs_up"
-          disabled={this.state.disabled}
+          disabled={disabled}
           circle
-          color="success"
+          color="green"
           size="jumbo"
           onClick={disableYesButtonClicked(this.handleYes)}
         />
         <Button
-          className={styles.button}
+          className={cx(styles.button,'imsechotest')}
           label={intl.formatMessage(intlMessages.disconfirmLabel)}
           aria-label={intl.formatMessage(intlMessages.disconfirmAriaLabel)}
           icon="thumbs_down"
           circle
-          color="danger"
+          color="green"
           size="jumbo"
           onClick={this.handleNo}
         />

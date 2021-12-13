@@ -104,5 +104,6 @@ export default withTracker(() => {
     connectRecordingObserver,
     meetingId,
     presentationTitle: meetingTitle,
+    CustomLogoUrl: userListService.getCustomLogoUrl()
   };
 })(NavBarContainer);

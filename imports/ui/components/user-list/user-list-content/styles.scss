@@ -142,6 +142,15 @@
   }
 }
 
+.sidebarlistitem{
+  // border-left: 1px solid #ddd;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  flex-grow: 1;
+  justify-content: center;
+}
+
 .unreadMessages {
   @extend %flex-column;
   justify-content: center;
@@ -203,4 +212,18 @@
 .noteTitle {
   font-weight: 400;
   font-size: var(--font-size-small);
+}
+
+.btmoptn{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-around;
+  font-size: 1.1rem;
+}
+.scrollableList200{
+  width: 200px;
+}
+.scrollableList300{
+  width: 300px;
 }

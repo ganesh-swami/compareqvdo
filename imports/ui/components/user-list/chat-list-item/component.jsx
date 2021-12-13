@@ -99,7 +99,9 @@ const ChatListItem = (props) => {
 
   const handleClickToggleChat = () => {
     // Verify if chat panel is open
-
+    console.log('[user-list] @vdo chat,idChatOpen',chat,idChatOpen)
+    console.log('[user-list] @vdo sidebarContentIsOpen,PANELS.CHAT',sidebarContentIsOpen,PANELS.CHAT)
+    console.log('[user-list] @vdo sidebarContentPanel',sidebarContentPanel)
     if (sidebarContentIsOpen && sidebarContentPanel === PANELS.CHAT) {
       if (idChatOpen === chat.chatId) {
         layoutContextDispatch({

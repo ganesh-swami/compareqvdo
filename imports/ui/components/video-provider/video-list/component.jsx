@@ -79,7 +79,7 @@ const findOptimalGrid = (canvasWidth, canvasHeight, gutter, aspectRatio, numItem
 const ASPECT_RATIO = 4 / 3;
 const ACTION_NAME_FOCUS = 'focus';
 const ACTION_NAME_MIRROR = 'mirror';
-const ACTION_NAME_BACKGROUND = 'blurBackground';
+// const ACTION_NAME_BACKGROUND = 'blurBackground';
 
 class VideoList extends Component {
   constructor(props) {
@@ -118,14 +118,25 @@ class VideoList extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    const { layoutType, cameraDock } = this.props;
+    const { focusedId } = this.state;
+    const { layoutType, cameraDock, streams } = this.props;
     const { width: cameraDockWidth, height: cameraDockHeight } = cameraDock;
-    const { layoutType: prevLayoutType, cameraDock: prevCameraDock } = prevProps;
+    const {
+      layoutType: prevLayoutType,
+      cameraDock: prevCameraDock,
+      streams: prevStreams,
+    } = prevProps;
     const { width: prevCameraDockWidth, height: prevCameraDockHeight } = prevCameraDock;
 
+    const focusedStream = streams.filter((item) => item.stream === focusedId);
+
+    if (focusedId && focusedStream.length === 0) {
+      this.handleVideoFocus(focusedId);
+    }
     if (layoutType !== prevLayoutType
       || cameraDockWidth !== prevCameraDockWidth
-      || cameraDockHeight !== prevCameraDockHeight) {
+      || cameraDockHeight !== prevCameraDockHeight
+      || streams.length !== prevStreams.length) {
       this.handleCanvasResize();
     }
   }
@@ -242,7 +253,7 @@ class VideoList extends Component {
     const { mirroredCameras } = this.state;
     if (this.cameraIsMirrored(stream)) {
       this.setState({
-        mirroredCameras: mirroredCameras.filter((x) => x != stream),
+        mirroredCameras: mirroredCameras.filter((x) => x !== stream),
       });
     } else {
       this.setState({

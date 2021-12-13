@@ -21,7 +21,8 @@
 
 .overlay {
   z-index: 1000;
-  background: #fff;
+  // background: #fff;
+  background-color: unset;
   display: flex;
   align-items: center;
   justify-content: center;

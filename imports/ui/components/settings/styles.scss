@@ -15,7 +15,7 @@
   @extend %no-margin;
   border: none;
   padding: 0;
-  width: calc(100% / 3);
+  width: calc(100% / 4);
 
   @include mq($small-only) {
     width: 100%;
@@ -78,7 +78,7 @@
 .tabPanel {
   display: none;
   margin: 0 0 0 1rem;
-  width: calc(100% / 3 * 2);
+  width: calc(100% / 4 * 3);
 
   [dir="rtl"] & {
     margin: 0 1rem 0 0;
@@ -108,3 +108,4 @@
     margin: 0 0 0 var(--sm-padding-x);
   }
 }
+

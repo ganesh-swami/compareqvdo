@@ -53,6 +53,7 @@ const setSwapLayout = () => {
 };
 
 const toggleSwapLayout = (layoutContextDispatch) => {
+  console.log('@qvdo10 toggleSwapLayout');
   window.dispatchEvent(new Event('togglePresentationHide'));
   swapLayout.value = !swapLayout.value;
   swapLayout.tracker.changed();

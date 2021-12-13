@@ -14,6 +14,11 @@ import Chat from '/imports/ui/components/chat/component';
 import ChatService from './service';
 import { LayoutContextFunc } from '../layout/context';
 
+import UserMessages from '../user-list/user-list-content/user-messages/container';
+import UserListSerive from '../user-list/service';
+
+
+
 const CHAT_CONFIG = Meteor.settings.public.chat;
 const PUBLIC_CHAT_KEY = CHAT_CONFIG.public_id;
 const PUBLIC_GROUP_CHAT_KEY = CHAT_CONFIG.public_group_id;
@@ -21,6 +26,9 @@ const CHAT_CLEAR = CHAT_CONFIG.system_messages_keys.chat_clear;
 const SYSTEM_CHAT_TYPE = CHAT_CONFIG.type_system;
 const ROLE_MODERATOR = Meteor.settings.public.user.role_moderator;
 const DEBOUNCE_TIME = 1000;
+const CLOSED_CHAT_LIST_KEY = 'closedChatList';
+const STARTED_CHAT_LIST_KEY = 'startedChatList';
+
 
 const sysMessagesIds = {
   welcomeId: `${SYSTEM_CHAT_TYPE}-welcome-msg`,
@@ -66,6 +74,7 @@ const ChatContainer = (props) => {
     children,
     loginTime,
     intl,
+    compact,
     userLocks,
     lockSettings,
     isChatLockedPublic,
@@ -73,6 +82,10 @@ const ChatContainer = (props) => {
     users: propUsers,
     layoutContextState,
     layoutContextDispatch,
+    IsPublicChat,
+    roving,
+    currentClosedChats,
+    startedChats,
     ...restProps
   } = props;
   const { idChatOpen } = layoutContextState;
@@ -223,6 +236,17 @@ const ChatContainer = (props) => {
   );
 
   return (
+    <>
+    <UserMessages
+      {...{
+        isPublicChat:IsPublicChat,
+        compact,
+        intl,
+        roving,
+        currentClosedChats,
+        startedChats,
+      }}
+    />
     <Chat {...{
       idChatOpen,
       isChatLocked,
@@ -244,10 +268,11 @@ const ChatContainer = (props) => {
     >
       {children}
     </Chat>
+    </>
   );
 };
 
-export default lockContextContainer(injectIntl(withTracker(({ intl, userLocks }) => {
+export default lockContextContainer(injectIntl(withTracker(({ intl, userLocks,compact }) => {
   const isChatLockedPublic = userLocks.userPublicChat;
   const isChatLockedPrivate = userLocks.userPrivateChat;
 
@@ -255,6 +280,7 @@ export default lockContextContainer(injectIntl(withTracker(({ intl, userLocks })
 
   return {
     intl,
+    compact,
     isChatLockedPublic,
     isChatLockedPrivate,
     isMeteorConnected,
@@ -263,5 +289,11 @@ export default lockContextContainer(injectIntl(withTracker(({ intl, userLocks })
     actions: {
       handleClosePrivateChat: ChatService.closePrivateChat,
     },
+    IsPublicChat:UserListSerive.isPublicChat,
+    roving:UserListSerive.roving,
+    currentClosedChats:Storage.getItem(CLOSED_CHAT_LIST_KEY) || [],
+    startedChats: Session.get(STARTED_CHAT_LIST_KEY) || [],
+
+
   };
 })(LayoutContextFunc.withConsumer(ChatContainer))));

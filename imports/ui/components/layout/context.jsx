@@ -193,7 +193,7 @@ const reducer = (state, action) => {
             width,
             height,
             top,
-            left,
+            left:0,
             tabOrder,
             zIndex,
           },
@@ -229,10 +229,35 @@ const reducer = (state, action) => {
             height,
             innerHeight,
             top,
-            left,
+            left:0,
             padding,
             tabOrder,
             zIndex,
+          },
+        },
+      };
+    }
+
+    // CAPTIONS
+    case ACTIONS.SET_CAPTIONS_OUTPUT: {
+      const {
+        left, right, maxWidth,
+      } = action.value;
+      const { captions } = state.output;
+      if (captions.left === left
+        && captions.right === right
+        && captions.maxWidth === maxWidth) {
+        return state;
+      }
+      return {
+        ...state,
+        output: {
+          ...state.output,
+          captions: {
+            ...captions,
+            left,
+            right,
+            maxWidth,
           },
         },
       };
@@ -322,6 +347,8 @@ const reducer = (state, action) => {
         && sidebarNavigation.isResizable === isResizable) {
         return state;
       }
+
+      
       return {
         ...state,
         output: {
@@ -333,9 +360,9 @@ const reducer = (state, action) => {
             width,
             maxWidth,
             minHeight,
-            height,
-            maxHeight,
-            top,
+            height:height-110,
+            maxHeight:maxHeight-110,
+            top:top+45,
             left,
             right,
             tabOrder,
@@ -478,10 +505,10 @@ const reducer = (state, action) => {
             width,
             maxWidth,
             minHeight,
-            height,
+            height:height-110,
             maxHeight,
-            top,
-            left,
+            top:top+45,
+            left:0,
             right,
             currentPanelType,
             tabOrder,

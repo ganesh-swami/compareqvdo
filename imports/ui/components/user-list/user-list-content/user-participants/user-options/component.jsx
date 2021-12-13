@@ -4,7 +4,6 @@ import { defineMessages, injectIntl } from 'react-intl';
 import _ from 'lodash';
 import { withModalMounter } from '/imports/ui/components/modal/service';
 import Button from '/imports/ui/components/button/component';
-import Dropdown from '/imports/ui/components/dropdown/component';
 import LockViewersContainer from '/imports/ui/components/lock-viewers/container';
 import GuestPolicyContainer from '/imports/ui/components/waiting-users/guest-policy/container';
 import BreakoutRoom from '/imports/ui/components/actions-bar/create-breakout-room/container';
@@ -251,6 +250,7 @@ class UserOptions extends PureComponent {
       && hasBreakoutRoom
       && getUsersNotAssigned(users).length;
 
+    const { locale } = intl;
 
     this.menuItems = [];
     
@@ -291,6 +291,7 @@ class UserOptions extends PureComponent {
             label: intl.formatMessage(intlMessages.guestPolicyLabel),
             // description: intl.formatMessage(intlMessages.guestPolicyDesc),
             onClick: () => mountModal(<GuestPolicyContainer />),
+            dataTest: "guestPolicyLabel",
           })
         }
       }
@@ -307,10 +308,11 @@ class UserOptions extends PureComponent {
         if (activityReportAccessToken != null) {
           this.menuItems.push({
             icon: "multi_whiteboard",
+            iconRight: "popout_window",
             label: intl.formatMessage(intlMessages.activityReportLabel),
             description: intl.formatMessage(intlMessages.activityReportDesc),
             key: this.activityReportId,
-            onClick: openActivityReportUrl,
+            onClick: () => openActivityReportUrl(locale),
           })
         }
       }
@@ -331,6 +333,7 @@ class UserOptions extends PureComponent {
           label: intl.formatMessage(intlMessages.createBreakoutRoom),
           // description: intl.formatMessage(intlMessages.createBreakoutRoomDesc),
           onClick: this.onCreateBreakouts,
+          dataTest: "createBreakoutRooms",
         })
       }
 
@@ -350,6 +353,7 @@ class UserOptions extends PureComponent {
           // description: intl.formatMessage(intlMessages.captionsDesc),
           key: this.captionsId,
           onClick: this.handleCaptionsClick,
+          dataTest: "inviteBreakoutRooms",
         })
       }
     }
@@ -358,7 +362,6 @@ class UserOptions extends PureComponent {
   }
 
   render() {
-    const { isUserOptionsOpen } = this.state;
     const { intl } = this.props;
 
     return (

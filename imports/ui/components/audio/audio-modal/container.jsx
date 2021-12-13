@@ -49,8 +49,20 @@ export default lockContextContainer(withModalMounter(withTracker(({ userLocks })
 
   const meetingIsBreakout = AppService.meetingIsBreakout();
 
-  const joinFullAudioImmediately = (autoJoin && (skipCheck || skipCheckOnJoin && !getEchoTest))
-    || (skipCheck || skipCheckOnJoin && !getEchoTest);
+  const joinFullAudioImmediately = (
+    autoJoin
+    && (
+      skipCheck
+      || (skipCheckOnJoin && !getEchoTest)
+    ))
+    || (
+      skipCheck
+      || (skipCheckOnJoin && !getEchoTest)
+    );
+
+  console.log('[audio-modal] #vdo joinFullAudioImmediately',joinFullAudioImmediately);
+
+
 
   const forceListenOnlyAttendee = forceListenOnly && !Service.isUserModerator();
 

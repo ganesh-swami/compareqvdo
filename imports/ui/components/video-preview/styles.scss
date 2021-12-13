@@ -80,7 +80,7 @@
   justify-content: center;
   margin: 0 0.5rem 0 0.5rem;
 
-  width: 50%;
+  // width: 50%;
   @include mq($small-only) {
     width: 90%;
     height: unset;
@@ -90,11 +90,15 @@
 .videoCol {
   @extend .col;
   align-items: center;
+  width: 48%;
+}
+.col{
+  width: 52%;
 }
 
 .content {
   display: flex;
-  height: 14rem;
+  height: 15rem;
   max-height: 40vh;
   justify-content: center;
   align-items: center;

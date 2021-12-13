@@ -6,7 +6,15 @@ import {
 import { defineMessages, injectIntl } from 'react-intl';
 import DataSaving from '/imports/ui/components/settings/submenus/data-saving/component';
 import Application from '/imports/ui/components/settings/submenus/application/component';
+import InputStreamLiveSelectorSettingContainer from '/imports/ui/components/settings/submenus/audio/container';
 import Notification from '/imports/ui/components/settings/submenus/notification/component';
+import VideoPreviewContainer from '/imports/ui/components/video-preview/container';
+
+import deviceInfo from '/imports/utils/deviceInfo';
+
+
+// import AudioModalContainer from '/imports/ui/components/audio/audio-modal/container';
+
 import _ from 'lodash';
 import PropTypes from 'prop-types';
 
@@ -85,6 +93,8 @@ const propTypes = {
     chatAudioAlerts: PropTypes.bool,
     chatPushAlerts: PropTypes.bool,
     userJoinAudioAlerts: PropTypes.bool,
+    userLeaveAudioAlerts: PropTypes.bool,
+    userLeavePushAlerts: PropTypes.bool,
     guestWaitingAudioAlerts: PropTypes.bool,
     guestWaitingPushAlerts: PropTypes.bool,
     paginationEnabled: PropTypes.bool,
@@ -98,6 +108,8 @@ const propTypes = {
   mountModal: PropTypes.func.isRequired,
   showToggleLabel: PropTypes.bool.isRequired,
 };
+
+const { isMobile } = deviceInfo;
 
 class Settings extends Component {
   static setHtmlFontSize(size) {
@@ -168,6 +180,7 @@ class Settings extends Component {
       showToggleLabel,
       layoutContextDispatch,
       selectedLayout,
+      inAudio
     } = this.props;
 
     const {
@@ -185,6 +198,14 @@ class Settings extends Component {
         selectedTabPanelClassName={styles.selectedTab}
       >
         <TabList className={styles.tabList}>
+          <Tab
+            className={styles.tabSelector}
+            aria-labelledby="dataSavingTab"
+            selectedClassName={styles.selected}
+          >
+            <Icon iconName="video" className={styles.icon} />
+            <span id="video">Video</span>
+          </Tab>
           <Tab
             className={styles.tabSelector}
             aria-labelledby="appTab"
@@ -208,7 +229,21 @@ class Settings extends Component {
             <Icon iconName="network" className={styles.icon} />
             <span id="dataSaving">{intl.formatMessage(intlMessages.dataSavingLabel)}</span>
           </Tab>
+          {inAudio ? 
+          <Tab
+            className={styles.tabSelector}
+            aria-labelledby="dataSavingTab"
+            selectedClassName={styles.selected}
+          >
+            <Icon iconName="unmute" className={styles.icon} />
+            <span id="audio">Audio</span>
+          </Tab>
+          : null}
+         
         </TabList>
+        <TabPanel className={styles.tabPanel}>
+          <VideoPreviewContainer />
+        </TabPanel>
         <TabPanel className={styles.tabPanel}>
           <Application
             allLocales={allLocales}
@@ -239,6 +274,15 @@ class Settings extends Component {
             displaySettingsStatus={this.displaySettingsStatus}
           />
         </TabPanel>
+        {inAudio ? 
+        <TabPanel className={styles.tabPanel}>
+          <InputStreamLiveSelectorSettingContainer />
+        </TabPanel>
+        : null}
+        
+        
+
+        
       </Tabs>
     );
   }

@@ -15,6 +15,7 @@
   text-align: center;
   font-size: 1.5rem;
   padding: var(--bars-padding) var(--bars-padding) 0 var(--bars-padding);
+  border-bottom: 1px solid #dddddd7a;
 }
 
 .top,
@@ -97,7 +98,8 @@
 
 .arrowRight {
   width: var(--md-padding-x);
-  left: var(--arrow-r-left);
+  left: 8rem;
+  // left: var(--arrow-r-left);
   [dir="rtl"] & {
     right: .5rem;
     left: 0;
@@ -126,6 +128,13 @@
 
 .dropdown{
   z-index: 99;
+}
+
+.offsetTop {
+  :global(.MuiPaper-root) {
+    top: 4rem !important;
+    bottom: auto !important;
+  }
 }
 
 .hideDropdownButton {

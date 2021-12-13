@@ -3,12 +3,24 @@ import PropTypes from 'prop-types';
 import Resizable from 're-resizable';
 import { ACTIONS, PANELS } from '../layout/enums';
 import ChatContainer from '/imports/ui/components/chat/container';
+import InviteContainer from '/imports/ui/components/invite/container';
 import NoteContainer from '/imports/ui/components/note/container';
 import PollContainer from '/imports/ui/components/poll/container';
 import CaptionsContainer from '/imports/ui/components/captions/pad/container';
 import BreakoutRoomContainer from '/imports/ui/components/breakout-room/container';
 import WaitingUsersPanel from '/imports/ui/components/waiting-users/container';
 import { styles } from '/imports/ui/components/app/styles';
+
+import { defineMessages, injectIntl } from 'react-intl';
+import Icon from '/imports/ui/components/icon/component';
+
+import UserNotesContainer from '../user-list/user-list-content/user-notes/container';
+
+import UserParticipantsContainer from '../user-list/user-list-content/user-participants/container'
+
+
+const CHAT_CONFIG = Meteor.settings.public.chat;
+const PUBLIC_CHAT_KEY = CHAT_CONFIG.public_id;
 
 const propTypes = {
   top: PropTypes.number.isRequired,
@@ -21,8 +33,15 @@ const propTypes = {
   height: PropTypes.number.isRequired,
   isResizable: PropTypes.bool.isRequired,
   resizableEdge: PropTypes.objectOf(PropTypes.bool).isRequired,
-  contextDispatch: PropTypes.func.isRequired,
+  layoutContextDispatch: PropTypes.func.isRequired,
 };
+
+const intlMessages = defineMessages({
+  breakoutTitle: {
+    id: 'app.createBreakoutRoom.title',
+    description: 'breakout title',
+  },
+});
 
 const defaultProps = {
   left: null,
@@ -31,6 +50,7 @@ const defaultProps = {
 
 const SidebarContent = (props) => {
   const {
+    intl,
     top,
     left,
     right,
@@ -43,7 +63,7 @@ const SidebarContent = (props) => {
     maxHeight,
     isResizable,
     resizableEdge,
-    contextDispatch,
+    layoutContextDispatch,
     sidebarContentPanel,
   } = props;
 
@@ -70,7 +90,7 @@ const SidebarContent = (props) => {
     setResizableWidth(newWidth);
     setResizableHeight(newHeight);
 
-    contextDispatch({
+    layoutContextDispatch({
       type: ACTIONS.SET_SIDEBAR_CONTENT_SIZE,
       value: {
         width: newWidth,
@@ -81,6 +101,41 @@ const SidebarContent = (props) => {
     });
   };
 
+
+  const handleClickToggleChat = () => {
+    // Verify if chat panel is open
+    console.log('[sidebar-content] @vdo PUBLIC_CHAT_KEY',PUBLIC_CHAT_KEY)
+    if (sidebarContentPanel === PANELS.CHAT) {
+      
+        layoutContextDispatch({
+          type: ACTIONS.SET_ID_CHAT_OPEN,
+          value: PUBLIC_CHAT_KEY//chat.chatId,
+        });
+    } else {
+      layoutContextDispatch({
+        type: ACTIONS.SET_SIDEBAR_CONTENT_IS_OPEN,
+        value: true,
+      });
+      layoutContextDispatch({
+        type: ACTIONS.SET_SIDEBAR_CONTENT_PANEL,
+        value: PANELS.CHAT,
+      });
+      layoutContextDispatch({
+        type: ACTIONS.SET_ID_CHAT_OPEN,
+        value: PUBLIC_CHAT_KEY//chat.chatId,
+      });
+    }
+  };
+
+  const handleClickToggleUsers = () =>{
+    if (sidebarContentPanel !== PANELS.USERLIST) {
+      
+        layoutContextDispatch({
+          type: ACTIONS.SET_SIDEBAR_CONTENT_PANEL,
+          value: PANELS.USERLIST
+        });
+    }
+  }
   return (
     <Resizable
       minWidth={minWidth}
@@ -119,21 +174,68 @@ const SidebarContent = (props) => {
         height,
       }}
     >
-      {sidebarContentPanel === PANELS.CHAT && <ChatContainer />}
-      {sidebarContentPanel === PANELS.SHARED_NOTES && <NoteContainer />}
-      {sidebarContentPanel === PANELS.CAPTIONS && <CaptionsContainer />}
-      {sidebarContentPanel === PANELS.POLL
-        && (
-          <div className={styles.poll} style={{ minWidth, top: '0' }} id="pollPanel">
-            <PollContainer />
-          </div>
-        )}
-      {sidebarContentPanel === PANELS.BREAKOUT && <BreakoutRoomContainer />}
-      {sidebarContentPanel === PANELS.WAITING_USERS && <WaitingUsersPanel />}
+      <div className={styles.sidebarMainCont}>
+        <div className={styles.sidebarTopnav}>
+            <div
+              role="button"
+              tabIndex={0}
+              onClick={handleClickToggleUsers}
+              data-test="breakoutRoomsItem"
+              className={styles.listItem}
+              aria-label="Users"
+              onKeyPress={() => {}}
+            >
+              <Icon iconName="user" />
+              <span aria-hidden>Users</span>
+            </div>
+            <div
+              role="button"
+              tabIndex={0}
+              onClick={handleClickToggleChat}
+              data-test="breakoutRoomsItem"
+              className={styles.listItem}
+              aria-label="Chat"
+              onKeyPress={() => {}}
+            >
+              <Icon iconName="group_chat" />
+              <span aria-hidden>Chat</span>
+            </div>
+            <UserNotesContainer
+              {...{
+                intl,
+              }}
+            />
+        </div>
+        {sidebarContentPanel === PANELS.CHAT && <ChatContainer />}
+        {sidebarContentPanel === PANELS.SHARED_NOTES && <NoteContainer />}
+        {sidebarContentPanel === PANELS.CAPTIONS && <CaptionsContainer />}
+        {sidebarContentPanel === PANELS.USERLIST && <UserParticipantsContainer
+          // {...{
+          //   compact,
+          //   intl,
+          //   currentUser,
+          //   setEmojiStatus,
+          //   clearAllEmojiStatus,
+          //   roving,
+          //   requestUserInformation,
+          // }}
+        />}
+
+        
+        {sidebarContentPanel === PANELS.POLL
+          && (
+            <div className={styles.poll} style={{ minWidth, top: '0' }} id="pollPanel">
+              <PollContainer />
+            </div>
+          )}
+        {sidebarContentPanel === PANELS.BREAKOUT && <BreakoutRoomContainer />}
+        {sidebarContentPanel === PANELS.WAITING_USERS && <WaitingUsersPanel />}
+        {/* {sidebarContentPanel === PANELS.INVITE && <InviteContainer />} */}
+      </div>
     </Resizable>
   );
 };
 
 SidebarContent.propTypes = propTypes;
 SidebarContent.defaultProps = defaultProps;
-export default SidebarContent;
+export default injectIntl(SidebarContent);

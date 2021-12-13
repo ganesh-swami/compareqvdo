@@ -7,6 +7,8 @@ import { defineMessages, injectIntl } from 'react-intl';
 import { styles } from './styles';
 import { validIOSVersion } from '/imports/ui/components/app/service';
 import { debounce } from 'lodash';
+import SettingsMenuContainer from '/imports/ui/components/settings/container';
+
 
 const intlMessages = defineMessages({
   joinVideo: {
@@ -48,6 +50,7 @@ const JoinVideoButton = ({
   hasVideoStream,
   disableReason,
   mountVideoPreview,
+  mountModal
 }) => {
   const exitVideo = () => hasVideoStream && !VideoService.isMultipleCamerasEnabled();
 
@@ -59,7 +62,8 @@ const JoinVideoButton = ({
     if (exitVideo()) {
       VideoService.exitVideo();
     } else {
-      mountVideoPreview();
+      mountModal(<SettingsMenuContainer />)
+      //mountVideoPreview();
     }
   }, JOIN_VIDEO_DELAY_MILLISECONDS);
 

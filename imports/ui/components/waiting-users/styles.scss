@@ -10,11 +10,11 @@
     var(--md-padding-x);
 
   display: flex;
-  flex-grow: 1;
+  // flex-grow: 1;
   flex-direction: column;
   justify-content: space-around;
   overflow: hidden;
-  height: 100%;
+  // height: 100%;
 
   :global(.browser-chrome) & {
     transform: translateZ(0);
@@ -171,11 +171,11 @@
   flex-direction: column;
   overflow-x: hidden;
   overflow-y: auto;
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  height: 100%;
-  width: 100%;
+  // position: absolute;
+  // top: 0;
+  // bottom: 0;
+  // height: 100%;
+  // width: 100%;
 }
 
 .userName {

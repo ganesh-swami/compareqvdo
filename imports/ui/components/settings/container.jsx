@@ -11,11 +11,15 @@ import {
   getAvailableLocales,
 } from './service';
 
-const SettingsContainer = props => {
+import Service from '../audio/service';
+
+const {isConnected,
+  isEchoTest } = Service
+const SettingsContainer = (props) => {
   const layoutContext = useContext(LayoutContext);
   const { layoutContextDispatch } = layoutContext;
 
-  return <Settings {...props} layoutContextDispatch={layoutContextDispatch} />
+  return <Settings {...props} layoutContextDispatch={layoutContextDispatch} />;
 };
 
 export default withTracker(() => ({
@@ -27,4 +31,6 @@ export default withTracker(() => ({
   isModerator: getUserRoles() === 'MODERATOR',
   showGuestNotification: showGuestNotification(),
   showToggleLabel: false,
+  inAudio: isConnected() && !isEchoTest(),
+
 }))(SettingsContainer);

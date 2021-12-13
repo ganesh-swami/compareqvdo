@@ -22,6 +22,7 @@
   color: var(--color-gray-dark);
   display: flex;
   flex-direction: row;
+  justify-content: space-between;
 
   > span {
     text-overflow: ellipsis;
@@ -47,4 +48,27 @@
     line-height: 0;
     font-size: 75%;
   }
+}
+
+.horiactions{
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: flex-end;
+  flex-grow: 1;
+  align-items: center;
+
+}
+.horiaction{
+  font-size: 1rem;
+  padding: 0 5px;
+
+  i{
+    font-size: 125%;
+  }
+}
+.red{
+  color: red;
+}
+.green{
+  color: green;
 }

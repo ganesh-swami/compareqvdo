@@ -9,12 +9,13 @@
   flex-direction: column;
   padding: calc(var(--line-height-computed) / 2) var(--line-height-computed);
   box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.5);
-  background-color: var(--color-white) !important;
+  // background-color: var(--color-white) !important;
+  background-color: #011435 !important;
 }
 
 .content {
   overflow: auto;
-  color: var(--color-text);
+  color: var(--color-off-white);
   font-weight: normal;
   padding: var(--line-height-computed) 0;
 }
@@ -37,6 +38,7 @@
   font-size: var(--font-size-large);
   text-align: center;
   align-self: flex-end;
+  color: #f1f1f1;
 }
 
 .dismiss {

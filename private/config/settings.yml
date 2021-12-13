@@ -26,19 +26,19 @@ public:
     # "media.setsinkid.enabled" to make it work properly
     # enableDynamicAudioDeviceSelection: true
     #
-    clientTitle: BigBlueButton
-    appName: BigBlueButton HTML5 Client
+    clientTitle: Qvdo
+    appName: Qvdo HTML5 Client
     bbbServerVersion: 2.4
-    copyright: '©2021 BigBlueButton Inc.'
-    html5ClientBuild: HTML5_CLIENT_VERSION
-    helpLink: https://bigbluebutton.org/html5/
+    copyright: 'copyright 2021 - Quadridge Technologies Private Limited'
+    html5ClientBuild: 7.0.19
+    helpLink: https://qvdo.me
     lockOnJoin: true
     cdn: ''
     basename: '/html5client'
-    # Use https URL of CSS file. Example: https://docs.bigbluebutton.org/admin/customize.html#examples
+    # Use https URL of CSS file. Example: https://docs.Qvdo.org/admin/customize.html#examples
     customStyleUrl: null
     askForFeedbackOnLogout: false
-    # the default logoutUrl matches window.location.origin i.e. bigbluebutton.org for demo.bigbluebutton.org
+    # the default logoutUrl matches window.location.origin i.e. Qvdo.org for demo.Qvdo.org
     # in some cases we want only custom logoutUrl to be used when provided on meeting create. Default value: true
     allowDefaultLogoutUrl: true
     allowUserLookup: false
@@ -68,7 +68,7 @@ public:
     breakouts:
       breakoutRoomLimit: 16
       sendInvitationToIncludedModerators: false
-    # https://github.com/bigbluebutton/bigbluebutton/pull/10826
+    # https://github.com/Qvdo/Qvdo/pull/10826
     customHeartbeat: false
     showAllAvailableLocales: true
     # Show "Audio Filters for Microphone" option in settings menu.
@@ -96,6 +96,8 @@ public:
         chatPushAlerts: false
         userJoinAudioAlerts: false
         userJoinPushAlerts: false
+        userLeaveAudioAlerts: false
+        userLeavePushAlerts: false
         raiseHandAudioAlerts: true
         raiseHandPushAlerts: true
         guestWaitingAudioAlerts: true
@@ -175,7 +177,7 @@ public:
     branding:
       displayBrandingArea: true
     connectionTimeout: 60000
-    showHelpButton: true
+    showHelpButton: false
     effectiveConnection:
       - critical
       - danger
@@ -183,7 +185,7 @@ public:
   externalVideoPlayer:
     enabled: true
   kurento:
-    wsUrl: HOST
+    wsUrl: wss://qvdo.me/bbb-webrtc-sfu
     # Valid for video-provider. Time (ms) before its WS connection times out
     # and tries to reconnect.
     wsConnectionTimeout: 4000
@@ -197,6 +199,9 @@ public:
       # subscribe reattempt increases the reconnection timer up to this
       maxTimeout: 60000
     screenshare:
+      # Experimental. True is the canonical behavior. Flip to false to reverse
+      # the negotiation flow for subscribers.
+      subscriberOffering: true
       bitrate: 1500
       mediaTimeouts:
         maxConnectionAttempts: 2
@@ -429,9 +434,9 @@ public:
     moderatorChatEmphasized: true
   note:
     enabled: true
-    url: ETHERPAD_HOST
+    url: https://qvdo.me/pad
   layout:
-    autoSwapLayout: false
+    autoSwapLayout: true
     hidePresentation: false
     showParticipantsOnLogin: true
   media:
@@ -445,12 +450,15 @@ public:
     echoTestNumber: 'echo'
     relayOnlyOnReconnect: false
     listenOnlyCallTimeout: 25000
+    # Experimental. True is the canonical behavior. Flip to false to reverse
+    # the negotiation flow for LO subscribers.
+    listenOnlyOffering: true
     #Timeout (ms) for gathering ICE candidates. When this timeout expires
     #the SDP is sent to the server with the candidates the browser gathered
     #so far. Increasing this value might help avoiding 1004 error when
     #user activates microphone.
     iceGatheringTimeout: 5000
-    sipjsHackViaWs: false
+    sipjsHackViaWs: true
     # Mute/umute toggle throttle time
     toggleMuteThrottleTime: 300
     #Websocket keepAlive interval (seconds). You may set this to prevent
@@ -659,7 +667,7 @@ private:
     pencilChunkLength: 100
     loadSlidesFromHttpAlways: false
   etherpad:
-    apikey: ETHERPAD_APIKEY
+    apikey: eACbrvchhI4cMkoIecrhDV4Dp1N3Gb5Juf4jq7ujoGd8LYln14HAdhYDZFUc6
     version: 1.2.13
     host: 127.0.0.1
     port: 9001

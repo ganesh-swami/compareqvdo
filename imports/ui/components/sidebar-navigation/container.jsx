@@ -6,7 +6,7 @@ const SidebarNavigationContainer = (props) => {
   const { layoutContextState, layoutContextDispatch, openPanel } = props;
   const { output } = layoutContextState;
   const { sidebarNavigation } = output;
-
+  console.log('sidebarNavigation.display, openPanel ',sidebarNavigation.display,openPanel);
   if (sidebarNavigation.display === false) return null;
 
   return (
